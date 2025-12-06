@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
           agent {
             docker {
-              image 'node:18-alpine'
+              image 'node:18-slim'
               reuseNode true
             }
           }
@@ -43,13 +43,12 @@ pipeline {
         stage('Deploy') {
           agent {
             docker {
-              image 'node:18-alpine'
+              image 'node:18-slim'
               reuseNode true
             }
           }
           steps {
             sh '''
-                apk add --no-cache bash
                 npm install netlify-cli
                 node_modules/.bin/netlify --version
                 node_modules/.bin/netlify status
